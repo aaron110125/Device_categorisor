@@ -47,5 +47,6 @@ def test_sorted_students(sample_students):
 class TestWorkingPath(TestCase):
 
     def test_work_on(self):
-        path = work_on()
-        self.assertEqual(path, os.getcwd())
+        with mock.patch('lambda_unit_test.os') as mocked_os:
+            work_on()
+            mocked_os.getcwd.assert_called_once()
