@@ -1,6 +1,15 @@
 # Trying out lambda functions
 
 import pytest
+import os
+from unittest import TestCase, mock
+
+def work_on():
+    path = os.getcwd()
+    print(f"Working on {path}")
+    return path
+
+
 @pytest.fixture
 def sample_students():
     return [
@@ -24,6 +33,7 @@ network_operations = StudentOperations([
     ("Jack", 50),
     ("Jane", 75)])
 
+print(work_on())
 print(network_operations.sorted_students)
 
 #below function is used for unit_testing
@@ -33,3 +43,9 @@ def test_sorted_students(sample_students):
     sorted_students = student_operations.sorted_students
 
     assert sorted_students == [("Jack", 50), ("Jane", 75), ("John", 100)]
+
+class TestWorkingPath(TestCase):
+
+    def test_work_on(self):
+        path = work_on()
+        self.assertEqual(path, os.getcwd())
