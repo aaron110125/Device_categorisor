@@ -46,7 +46,15 @@ def test_sorted_students(sample_students):
 
 class TestWorkingPath(TestCase):
 
+    """
     def test_work_on(self):
         with mock.patch('lambda_unit_test.os') as mocked_os:
             work_on()
             mocked_os.getcwd.assert_called_once()
+    """ 
+
+    @mock.patch('lambda_unit_test.os.getcwd')
+    def test_work_on(self, mocked_os_value):
+        mocked_os_value.return_value = 'test_path'
+        expected_path = work_on()
+        assert expected_path == 'test_path'
